@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ćwiczenia z lukami</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7758e8;--pink:#ff6b9d;--green:#20b486;--bg:#f6f4ff;--card:#fff;--ink:#302d4a;--mut:#8b86a4;--line:#ebe7fb;--soft:#f4f0ff;--ok-bg:#e5fff5;--ok:#087c5a;--bad-bg:#fff0f4;--bad:#ce4264;--field:#faf9ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#17152a;--card:#221f3a;--ink:#ece9ff;--mut:#9d98bd;--line:#35315a;--soft:#2c2850;--ok-bg:#12382e;--ok:#5fe0b6;--bad-bg:#402032;--bad:#ff8fa8;--field:#1c1932}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 14px;font-family:'Poppins',system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh}
+.wrap{max-width:1000px;margin:auto}
+.hero{text-align:center;padding:24px 18px;border-radius:26px;color:#fff;background:linear-gradient(120deg,#7857e8,#b06af4,#ff78ad)}
+.hero h1{margin:4px 0;font-size:clamp(22px,5vw,34px);font-weight:800}.hero p{margin:6px 0 0;opacity:.95;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:18px}
+h2{font-size:18px;margin:0 0 12px}h3{font-size:14px;margin:14px 0 6px}
+.grid{display:grid;grid-template-columns:230px 1fr;gap:16px;margin-top:18px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.side .card,.main .card{margin-top:0}
+.item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;border:2px solid transparent}
+.item:hover{background:var(--soft)}.item.on{background:var(--soft);border-color:var(--purple);color:var(--purple)}
+.item small{color:var(--mut);font-weight:500}
+input[type=text],textarea{width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--field);color:var(--ink);font:500 14px 'Poppins',sans-serif;outline:none}
+input:focus,textarea:focus{border-color:var(--purple)}
+textarea{min-height:200px;resize:vertical;line-height:1.7}
+label{font-size:12px;font-weight:700;color:var(--mut);display:block;margin:12px 0 5px}
+.btn{border:none;border-radius:12px;padding:10px 16px;font:700 13px 'Poppins',sans-serif;cursor:pointer;background:var(--soft);color:var(--purple)}
+.btn:hover{transform:translateY(-1px)}
+.btn.p{color:#fff;background:linear-gradient(100deg,#7858e8,#a16aef)}.btn.g{color:#fff;background:linear-gradient(100deg,#20b486,#3fd0a2)}.btn.d{color:var(--bad);background:var(--bad-bg)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.chip{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:10px;background:var(--soft);font-size:12px;font-weight:600;margin:3px}
+.gaprow{display:flex;gap:8px;align-items:center;margin:6px 0}.gaprow b{min-width:58px;font-size:12px;color:var(--purple)}
+.hint{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.6}
+.big{border:3px solid var(--purple);background:linear-gradient(120deg,var(--soft),var(--card))}.pol{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}.polt{font-size:clamp(18px,3.4vw,24px);font-weight:800;line-height:1.4;margin-top:4px}
+.dt{border:2px solid var(--line);border-radius:14px;padding:10px 14px;margin-top:14px}.dt summary{cursor:pointer;font-weight:700;font-size:14px}
+.dz{border:2px dashed var(--purple);border-radius:14px;padding:14px;text-align:center;font-size:13px;font-weight:600;color:var(--mut);margin-top:8px}.dz.on{background:var(--soft)}
+.emo{display:inline-block;border:none;background:var(--soft);border-radius:10px;font-size:22px;padding:4px 8px;margin:3px;cursor:pointer}.emo:hover{transform:scale(1.15)}
+.tabs{display:flex;gap:6px;margin-bottom:14px}.tab{padding:8px 14px;border-radius:12px;font-weight:700;font-size:13px;cursor:pointer;background:var(--soft);color:var(--purple)}.tab.on{background:var(--purple);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-size:12px}
+.sc{font-weight:800}.sc.hi{color:var(--ok)}.sc.lo{color:var(--bad)}
+.tablewrap{overflow-x:auto}
+.story{font-size:15px;line-height:2.7;flex:1;min-width:0}
+.lay.has{display:flex;gap:20px;align-items:flex-start}
+.pics{flex:0 0 36%;position:sticky;top:12px}
+.pics img{display:block;width:100%;border-radius:14px;margin-bottom:12px;border:1px solid var(--line)}
+@media(max-width:720px){.lay.has{flex-direction:column}.pics{order:-1;flex:none;width:100%;position:static}}
+.blank{width:140px;max-width:100%;padding:6px 9px;margin:3px;border:2px solid var(--line);border-radius:10px;background:var(--field);color:var(--purple);font:600 14px 'Poppins',sans-serif;outline:none;display:inline-block}
+.blank:focus{border-color:var(--purple)}.blank.correct{border-color:var(--green);background:var(--ok-bg);color:var(--ok)}.blank.wrong{border-color:#ff7190;background:var(--bad-bg);color:var(--bad)}
+.bank{display:flex;flex-wrap:wrap;gap:9px}.word{border:2px solid var(--line);background:var(--soft);color:var(--purple);border-radius:12px;padding:8px 12px;font:700 13px 'Poppins',sans-serif;cursor:pointer}.word.used{opacity:.35;text-decoration:line-through}
+.inst{padding:12px 14px;border-radius:14px;background:var(--soft);font-weight:600;font-size:14px;line-height:1.6;margin-bottom:14px}
+.bar{background:var(--line);height:9px;border-radius:99px;margin-top:16px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7758e8,#ff75ae);transition:width .3s}
+.res{display:none;margin-top:16px;padding:16px;border-radius:14px;background:var(--soft);font-weight:600;line-height:1.8}
+.code{width:100%;font-size:11px;min-height:60px;margin-top:6px}
+.msg{font-size:12px;font-weight:600;color:var(--green);margin-left:6px}
+.empty{color:var(--mut);font-size:13px;padding:10px 0}
+/* HALLOWEEN */
+.wrap,.ground{position:relative;z-index:1}.hero{position:relative}
+:root:not(.plain):not([data-theme="light"]){color-scheme:dark;--bg:#160d2b;--card:#241540;--ink:#fff1de;--mut:#c3a9e8;--line:#4b2f7a;--soft:#34205c;--purple:#ff8a1f;--pink:#b86bff;--green:#3ddc97;--ok-bg:#123b2e;--ok:#6ff0b8;--bad-bg:#47203a;--bad:#ff8fa8;--field:#1b1033}
+html:not(.plain) body{background:radial-gradient(circle at 12% 0%,#6b2bb066,transparent 45%),radial-gradient(circle at 92% 100%,#ff7a0040,transparent 42%),#160d2b}
+html:not(.plain) .hero{background:linear-gradient(120deg,#ff7a00,#d4470a 45%,#5b21b6);box-shadow:0 10px 30px #ff7a0040}
+html:not(.plain) .btn.p{background:linear-gradient(100deg,#ff7a00,#ff4d2e);color:#fff}
+html:not(.plain) .bar i{background:linear-gradient(90deg,#ff8a1f,#b86bff)}
+html:not(.plain) .card{border-color:#5a3a92;position:relative}
+html:not(.plain) .card:nth-of-type(3n+1)::before{content:"";position:absolute;top:0;right:52px;width:2px;height:30px;background:#cdbbf0aa;pointer-events:none}
+html:not(.plain) .card:nth-of-type(3n+1)::after{content:"🕷️";position:absolute;top:26px;right:41px;font-size:24px;pointer-events:none;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+.spd{position:absolute;top:100%;margin-top:-1px;transform-origin:top center;animation:sw 3s ease-in-out infinite alternate;z-index:2;pointer-events:none}
+.spd i{display:block;width:2px;height:var(--h);background:#e5d9ff;margin:0 auto}.spd b{display:block;font-size:28px;margin-top:-6px;line-height:1}
+@keyframes sw{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+.hl,.hr{position:absolute;bottom:6px;font-size:clamp(34px,7vw,64px);line-height:1;animation:fl 3s ease-in-out infinite}.hl{left:2.5%}.hr{right:2.5%;animation-delay:-1.5s}
+@media(max-width:560px){.hl,.hr{display:none}}
+.fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.fx .fl{position:absolute;opacity:.55;animation:fl 4s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-16px) rotate(6deg)}}
+.fx .bat{position:absolute;left:0;font-size:28px;z-index:2;animation:fly linear infinite;opacity:.9}
+@keyframes fly{from{transform:translateX(-12vw) translateY(0)}50%{transform:translateX(50vw) translateY(-26px)}to{transform:translateX(112vw) translateY(0)}}
+.ground{text-align:center;font-size:clamp(26px,5vw,40px);margin-top:34px;padding-bottom:16px}
+.ground span{display:inline-block;margin:0 clamp(2px,1vw,10px);animation:jump 2.2s ease-in-out infinite}
+@keyframes jump{0%,70%,100%{transform:translateY(0)}85%{transform:translateY(-12px)}}
+.tg{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:5;font-size:18px;padding:8px 12px}
+html.plain .spd,html.plain .hl,html.plain .hr,html.plain .fx,html.plain .ground{display:none}
+</style>
+</head>
+<body>
+<div class="fx" id="fx"></div><div class="wrap" id="app"></div><div class="ground" id="gr"></div><button class="btn tg" id="tg" title="Motyw Halloween: włącz lub wyłącz">🎃</button>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$("#app");
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const dec=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return JSON.parse(decodeURIComponent(escape(atob(s))))};
+const norm=t=>t.trim().toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ");
+const GAP=/\[\[(.+?)\]\]/g;
+const fmt=d=>new Date(d).toLocaleString("pl-PL",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+const shrink=(f,max,q)=>new Promise((ok,no)=>{const fr=new FileReader();fr.onerror=no;fr.onload=()=>{const im=new Image();im.onerror=no;im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok({blob:()=>new Promise(r=>c.toBlob(r,'image/jpeg',q)),url:()=>{const w=c.toDataURL('image/webp',q);return w.startsWith('data:image/webp')?w:c.toDataURL('image/jpeg',q)}})};im.src=fr.result};fr.readAsDataURL(f)});
+const cap=n=>{try{return window.claude&&window.claude.use?Promise.resolve(window.claude.use(n)):Promise.resolve(null)}catch(e){return Promise.resolve(null)}};
+const autoBank=e=>[...gaps(e.text).map(a=>a.split("|")[0].trim()),...(e.extra||"").split(",").map(s=>s.trim()).filter(Boolean)].join(", ");
+const EMO=["⚽","🏀","🎾","🏆","🇵🇱","🇬🇧","🇺🇸","🇫🇷","🇩🇪","🇪🇸","🇮🇹","🇸🇦","🇯🇵","🇧🇷","🍎","🍕","🍔","☕","🎵","🎬","📚","💻","📱","🚗","✈️","🏠","🌍","🌞","🌧️","❄️","🔥","💰","❤️","⭐","😀","😂","😁","😢","😱","👍","👏","🎉","🐶","🐱","🦁","🌳","⏰","🔒","🕵️","🛒","🥛","🧀","🍦","🥩"];
+const EKEY={ball:"⚽",football:"⚽",soccer:"⚽",basketball:"🏀",tennis:"🎾",trophy:"🏆",poland:"🇵🇱",polish:"🇵🇱",england:"🇬🇧",britain:"🇬🇧",usa:"🇺🇸",america:"🇺🇸",france:"🇫🇷",french:"🇫🇷",germany:"🇩🇪",spain:"🇪🇸",italy:"🇮🇹",saudi:"🇸🇦",japan:"🇯🇵",brazil:"🇧🇷",fire:"🔥",money:"💰",computer:"💻",hacker:"💻",phone:"📱",music:"🎵",film:"🎬",movie:"🎬",book:"📚",car:"🚗",plane:"✈️",house:"🏠",food:"🍕",pizza:"🍕",coffee:"☕",milk:"🥛",cheese:"🧀","ice cream":"🍦",meat:"🥩",supermarket:"🛒",shop:"🛒",dog:"🐶",cat:"🐱",lion:"🦁",sun:"🌞",rain:"🌧️",snow:"❄️",love:"❤️",star:"⭐",time:"⏰",police:"🕵️"};
+const EC=[["😀","Buźki","😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 😉 😊 😇 🥰 😍 🤩 😘 😗 😚 😙 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🤫 🤔 🤐 🤨 😐 😑 😶 😏 😒 🙄 😬 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 🤯 🤠 🥳 😎 🤓 🧐 😕 😟 🙁 ☹️ 😮 😯 😲 😳 🥺 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💩 🤡 👹 👺 👽 👾 🤖 😺 😸 😹 😻 😼 😽 🙀 😿 😾 🙈 🙉 🙊 🥲 🫠 😶‍🌫️ 😮‍💨 😵‍💫 🤐 😻 💋 💌 💘 💝 💞 💟 💗 💓 ❤️‍🔥 🫶 🫰 👻 💀 ☠️ 🎃 🤡 🧸 🗨️ 💬 💭 🗯️ 💤"],
+["👋","Ludzie i gesty","👋 🤚 🖐️ ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦵 🦶 👂 👃 🧠 👀 👁️ 👅 👄 👶 🧒 👦 👧 🧑 👨 👩 🧓 👴 👵 👮 🕵️ 💂 👷 🤴 👸 🧙 🧚 🧛 🧜 🧝 🧞 🧟 💃 🕺 🏃 🚶 🧘 👨‍🍳 👩‍🍳 👨‍🏫 👩‍🏫 👨‍⚕️ 👩‍⚕️ 👨‍🚀 👩‍🚀 👨‍🎤 👩‍🎤 🦸 🦹 🎅 🤶 🧑‍🎓 👨‍🎓 👩‍🎓 👨‍💻 👩‍💻 👨‍🔬 👩‍🔬 👨‍🌾 👩‍🌾 👨‍🔧 👩‍🔧 👨‍🎨 👩‍🎨 👨‍✈️ 👩‍✈️ 👨‍🚒 👩‍🚒 👮‍♀️ 💁 🙋 🙆 🙅 🤷 🤦 🙇 🤰 🤱 👯 🧖 💆 💇 🚶‍♀️ 🏃‍♀️ 👫 👬 👭 👪 💑 💏 🧔 👱 🦰 🦱 🦳 🦲 👤 👥 🗣️ 🦷 🦴 🦻 🫂 🙎 🙍 🧎 🧍 🤵 👰 🤹 🛀 🛌"],
+["🐶","Zwierzęta i natura","🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐵 🐔 🐧 🐦 🐤 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐜 🕷️ 🕸️ 🦂 🐢 🐍 🦎 🐙 🦑 🦐 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🐘 🦏 🦛 🐪 🐫 🦒 🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🐐 🦌 🐕 🐩 🐈 🐓 🦃 🕊️ 🐇 🐁 🐀 🐿️ 🦔 🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🍁 🍂 🍃 🌸 🌹 🌺 🌻 🌼 🌷 🌍 🌙 ⭐ 🌞 ☁️ ⛅ 🌧️ ⛈️ 🌈 ❄️ ☃️ 🔥 💧 🌊 🐾 🦢 🦩 🦚 🦜 🦡 🦨 🦦 🦥 🐉 🐲 🦕 🦖 🦟 🦗 🐚 🌾 💐 🍄 🌰 🌎 🌏 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 🌚 🌛 🌜 🌝 ☀️ 🌤️ 🌥️ 🌦️ 🌩️ 🌨️ 🌪️ 🌫️ 🌬️ 💨 ☔ ⚡ ☄️ 🌀 🌁 🌌 🌠 🌡️ 🪐 🏔️ 🌄 🌅 🏜️ 🏖️ 🏝️ 🌋 🪵 🪨"],
+["🍎","Jedzenie i picie","🍏 🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓 🍈 🍒 🍑 🥭 🍍 🥥 🥝 🍅 🍆 🥑 🥦 🥬 🥒 🌶️ 🌽 🥕 🧄 🧅 🥔 🍠 🥐 🍞 🥖 🧀 🥚 🍳 🥞 🧇 🥓 🥩 🍗 🍖 🌭 🍔 🍟 🍕 🥪 🌮 🌯 🥗 🍝 🍜 🍲 🍛 🍣 🍱 🍤 🍙 🍚 🍘 🍥 🥟 🍦 🍧 🍨 🍩 🍪 🎂 🍰 🧁 🥧 🍫 🍬 🍭 🍮 🍯 🍼 🥛 ☕ 🍵 🧃 🥤 🍶 🍺 🍻 🥂 🍷 🍹 🍴 🥄 🥜 🍿 🧂 🥫 🥡 🥢 🧈 🥯 🥨 🧆 🥙 🥘 🍢 🍡 🍾 🥃 🍸 🧉 🧊 🍽️ 🍄 🫐 🫒 🫑 🫓 🥭 🍘 🧋"],
+["⚽","Sport","⚽ 🏀 🏈 ⚾ 🥎 🎾 🏐 🏉 🎱 🏓 🏸 🏒 🏑 🥍 🏏 🥅 ⛳ 🏹 🎣 🥊 🥋 🎽 🛹 ⛸️ 🥌 🎿 ⛷️ 🏂 🏋️ 🤼 🤸 ⛹️ 🤺 🤾 🏌️ 🏇 🧘 🏄 🏊 🤽 🚣 🧗 🚴 🚵 🏆 🥇 🥈 🥉 🏅 🎖️ 🎯 🎮 🎲 ♟️ 🎳 🛷 🥏 🎰 🧩 🎭 🎪 🎻 🎷 🎺 🏟️ 🎫 🎟️ 🏋️‍♀️ 🚴‍♀️ 🏊‍♀️ 🤿 🛶 🛼 🏁 🕹️ 👾 🃏 🀄 🎴 🪁 🪀 🏹 🧗‍♀️ 🤸‍♀️ ⛹️‍♀️ 🏄‍♀️ 🤽‍♀️ 🚣‍♀️"],
+["🚗","Podróże i miejsca","🚗 🚕 🚙 🚌 🚎 🏎️ 🚓 🚑 🚒 🚚 🚜 🏍️ 🚲 🛴 🚨 🚂 🚆 🚇 🚊 ✈️ 🛫 🛬 🚀 🛸 🚁 ⛵ 🚤 🛳️ ⚓ 🏠 🏡 🏢 🏥 🏦 🏨 🏫 🏰 🏯 🗼 🗽 ⛪ 🕌 ⛩️ 🌋 ⛰️ 🏔️ 🏝️ 🏕️ 🌅 🌃 🌉 🎡 🎢 ⛺ 🗺️ 🧭 🚐 🛻 🚛 🚍 🚘 🚖 🚔 🚝 🚞 🚈 🚉 🚋 🚃 🚟 🚠 🚡 🛰️ 💺 🛩️ 🪂 🛥️ ⛴️ 🚢 🛣️ 🛤️ ⛽ 🚧 🚦 🚥 🚏 🗿 🏛️ 🏗️ 🏘️ 🏙️ 🏞️ 🏬 🏭 🏪 🏩 🏤 🏣 ⛲ 🌆 🌇 🌐 🏚️ 🛕 🕍 🕋 ⛱️ 🛖 🛍️ 🧳 🛎️"],
+["💡","Przedmioty","⌚ 📱 💻 ⌨️ 🖥️ 🖨️ 🖱️ 💾 📷 📹 🎥 📺 📻 🎙️ ⏰ ⏳ 🔋 🔌 💡 🔦 🕯️ 💸 💵 💰 💳 💎 🔧 🔨 ⚙️ 🧰 🧲 🔬 🔭 📡 💉 💊 🚪 🛏️ 🛋️ 🚽 🚿 🛒 🎁 🎈 🎉 🎊 ✉️ 📦 📚 📖 📝 ✏️ 🖊️ 📌 📎 ✂️ 🔒 🔓 🔑 🗝️ 🎵 🎶 🎤 🎧 🎸 🎹 🥁 🎬 🎨 🧸 👓 🕶️ 👕 👖 👗 👟 👠 🎩 👑 💍 🎒 📞 ☎️ 📟 📠 🔍 🔎 🧮 🏷️ 🔖 📅 📆 📈 📉 📊 📋 📁 📂 🗂️ 📰 🗞️ 📓 📔 📕 📗 📘 📙 🔗 ⛓️ 🧷 🧹 🧺 🧻 🧼 🧽 🛁 🛀 🕰️ ⏱️ ⏲️ 📸 📼 🔊 🔉 📢 📣 🎼 🧪 🧫 🧬 🔩 ⛏️ 🗑️ 🛠️ 🧢 👒 🎓 👜 👛 👝 🧣 🧤 🧥 👔 👘 🥿 👞 👡 👢 💄 💋 🎀 🔮 🧿 📿 🪞 🪑 🪜 🛋️ 🖼️ 🧯 🪝 📮 🗳️ 🎐 🎏 🏮 🪔"],
+["❤️","Symbole","❤️ 🧡 💛 💚 💙 💜 🖤 🤍 💔 ❣️ 💕 💖 💯 💢 💥 💫 💦 💤 ✅ ❌ ❓ ❗ ⚠️ ⭐ 🌟 ✨ ➕ ➖ ➡️ ⬅️ ⬆️ ⬇️ 🔄 🔔 🔕 ♻️ ☮️ ☯️ 🔴 🟠 🟡 🟢 🔵 🟣 ⚫ ⚪ 🔺 🔻 💲 ©️ ®️ ™️ ♥️ ❇️ ✳️ ❎ ✔️ ☑️ ➗ ✖️ ♾️ ‼️ ⁉️ ❔ ❕ 〰️ ➰ ➿ ↗️ ↘️ ↙️ ↖️ ↕️ ↔️ 🔙 🔚 🔛 🔜 🔝 🔃 🔁 🔂 ▶️ ⏸️ ⏹️ ⏺️ ⏭️ ⏮️ ⏩ ⏪ 🔼 🔽 ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ 🆗 🆕 🆒 🆓 🆙 🆘 🅰️ 🅱️ 🆎 🅾️ ℹ️ 🔠 🔡 🔤 #️⃣ *️⃣ 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟 🟥 🟧 🟨 🟩 🟦 🟪 ⬛ ⬜ 🔶 🔷 🔸 🔹 ♠️ ♣️ ♦️ 🚫 ⛔ 🚭 🔞 ☢️ ☣️ ⚛️ ✝️ ☪️ 🕉️ ☸️ ✡️ 🔯 🕎 ⚕️ ⚜️ 🔱 🔰 ♿ 🚻 🚼 🛂 🛃"],
+["🏳️","Flagi","🇵🇱 🇬🇧 🇺🇸 🇩🇪 🇫🇷 🇪🇸 🇮🇹 🇵🇹 🇳🇱 🇧🇪 🇨🇭 🇦🇹 🇨🇿 🇸🇰 🇺🇦 🇱🇹 🇸🇪 🇳🇴 🇫🇮 🇩🇰 🇮🇪 🇬🇷 🇹🇷 🇸🇦 🇦🇪 🇪🇬 🇿🇦 🇨🇳 🇯🇵 🇰🇷 🇮🇳 🇦🇺 🇨🇦 🇲🇽 🇧🇷 🇦🇷 🇨🇴 🇨🇱 🇨🇺 🇷🇺 🇮🇱 🇹🇭 🇻🇳 🇮🇩 🇪🇺 🇺🇳 🏁 🚩 🏴 🏳️ 🏳️‍🌈 🇭🇺 🇷🇴 🇧🇬 🇭🇷 🇸🇮 🇷🇸 🇱🇻 🇪🇪 🇮🇸 🇱🇺 🇲🇹 🇨🇾 🇦🇱 🇧🇾 🇲🇩 🇬🇪 🇦🇲 🇰🇿 🇵🇰 🇧🇩 🇳🇵 🇱🇰 🇲🇾 🇸🇬 🇵🇭 🇳🇿 🇵🇪 🇻🇪 🇪🇨 🇺🇾 🇧🇴 🇵🇾 🇨🇷 🇵🇦 🇯🇲 🇩🇴 🇲🇦 🇹🇳 🇩🇿 🇳🇬 🇰🇪 🇪🇹 🇬🇭 🇸🇳 🇮🇷 🇮🇶 🇯🇴 🇱🇧 🇶🇦 🇰🇼 🇦🇫 🇲🇳 🇹🇼 🇭🇰 🇰🇵 🇲🇲 🇰🇭 🇪🇸 🇬🇮 🇲🇨 🇱🇮 🇻🇦 🇦🇩 🇸🇲 🇫🇴 🇬🇱 🇨🇮 🇨🇲 🇹🇿 🇺🇬 🇦🇴 🇲🇿 🇿🇼"],
+["🎃","Halloween","🎃 👻 💀 ☠️ 🕷️ 🕸️ 🦇 🧙 🧙‍♀️ 🧛 🧟 🧚 🧞 👹 👺 🤡 👽 👾 🔮 🕯️ 🌕 🌑 🌙 🍬 🍭 🍫 ⚰️ 🧹 🐈‍⬛ 🦉 🍂 🧪 ⚗️ 🕰️ 🏚️ 🦴 🧛‍♀️ 🧛‍♂️ 🧟‍♀️ 🧟‍♂️ 🧙‍♂️ 🧚‍♀️ 🧞‍♂️ 🌫️ ⚡ 🌌 🧿 📿 🍎 🍏 🍿 🥧 🖤 🧡 🟠 🟣 ⚫ 😱 😈 👿 🎭 🪦 🔔 🧶 🪡 🕳️ 🌲 🌳 🏰 🗝️ 📜 🔦 ⛓️ 🧲 🧬 🪞 🌒 🌓 🌔 🌖 🌗 🌘"]];
+const hdr=(t,p)=>`<header class="hero"><span class="spd" style="left:9%;--h:44px"><i></i><b>🕷️</b></span><span class="spd" style="left:86%;--h:72px;animation-delay:-1.2s"><i></i><b>🕷️</b></span><span class="spd" style="left:27%;--h:24px;animation-delay:-2s"><i></i><b>🕷️</b></span><span class="spd" style="left:68%;--h:34px;animation-delay:-.6s"><i></i><b>🕷️</b></span><span class="hl">🧙</span><span class="hr">🎃</span><div style="font-size:38px">🎃👻💀</div><h1>${t}</h1><p>${p}</p></header>`;
+
+/* ---------- STUDENT ---------- */
+function student(ex){
+  const bankWords=[];
+  const parts=[];let last=0,n=0;
+  ex.x.replace(GAP,(m,a,i)=>{parts.push(esc(ex.x.slice(last,i)).replace(/\n/g,"<br>"));
+    const ans=a.split("|").map(s=>s.trim()).filter(Boolean);bankWords.push(ans[0]);
+    parts.push(`<input class="blank" data-a="${esc(ans.join("|"))}" aria-label="Luka ${++n}" autocomplete="off" autocapitalize="off" spellcheck="false">`);last=i+m.length;return m});
+  parts.push(esc(ex.x.slice(last)).replace(/\n/g,"<br>"));
+  const words=ex.b?(ex.bw!=null?ex.bw.split(","):[...bankWords,...(ex.e||"").split(",")]).map(s=>s.trim()).filter(Boolean).sort(()=>Math.random()-.5):[];
+  app.innerHTML=hdr(esc(ex.t||"Ćwiczenie"),"Uzupełnij luki i kliknij „Sprawdź”. Masz tylko jedną próbę!")+
+  (ex.n?`<section class="card big"><div class="pol">📌 Polecenie</div><div class="polt">${esc(ex.n)}</div></section>`:"")+
+  (words.length?`<section class="card"><h2>🎨 Bank słów</h2><div class="bank" id="bank"></div><div class="hint">Kliknij słowo, a potem lukę, albo wpisz odpowiedź ręcznie.</div></section>`:"")+
+  `<section class="card">
+  <label style="margin-top:0">Twoje imię i nazwisko</label><input type="text" id="sname" placeholder="np. Anna Kowalska" style="max-width:320px;margin-bottom:14px">
+  <div class="lay${(ex.im||[]).length?" has":""}"><div class="story">${parts.join("")}</div>${(ex.im||[]).length?`<div class="pics">${(ex.im||[]).map(u=>`<img src="${esc(u)}" alt="">`).join("")}</div>`:""}</div><div class="bar"><i id="bar"></i></div>
+  <div class="row"><button class="btn p" id="chk">✅ Sprawdź (tylko raz)</button></div>
+  <div class="res" id="res"></div></section>`;
+  const blanks=[...document.querySelectorAll(".blank")];let sel=null,lastIn=null;let saved=null;if(!ex.p){try{saved=JSON.parse(localStorage.getItem("luki_done_"+ex.i))}catch(e){}}
+  const bank=$("#bank");
+  const upd=()=>{const u=new Set(blanks.map(b=>norm(b.value)));document.querySelectorAll(".word").forEach(w=>w.classList.toggle("used",u.has(norm(w.textContent))))};
+  words.forEach(w=>{const b=document.createElement("button");b.className="word";b.type="button";b.textContent=w;
+    b.onclick=()=>{const t=document.activeElement.classList&&document.activeElement.classList.contains("blank")?document.activeElement:(lastIn&&!lastIn.value?lastIn:blanks.find(x=>!x.value));
+      if(t){t.value=w;t.classList.remove("correct","wrong");t.focus();upd()}};bank.appendChild(b)});
+  blanks.forEach(b=>{b.addEventListener("focus",()=>lastIn=b);b.addEventListener("input",()=>{b.classList.remove("correct","wrong");upd()});
+    b.addEventListener("click",()=>{if(sel&&!b.value){}})});
+  $("#chk").onclick=()=>{
+    const name=$("#sname").value.trim();
+    if(!name){$("#sname").focus();$("#sname").style.borderColor="#ff7190";return}
+    if(!saved&&!ex.p&&!confirm("Możesz sprawdzić odpowiedzi tylko jeden raz. Czy na pewno chcesz sprawdzić?"))return;
+    let ok=0;blanks.forEach(b=>{const good=b.dataset.a.split("|").map(norm).includes(norm(b.value));b.classList.remove("correct","wrong");b.classList.add(good?"correct":"wrong");if(good)ok++});
+    const t=blanks.length;$("#bar").style.width=(t?ok/t*100:0)+"%";
+    const code=saved?saved.code:enc({i:ex.i,n:name,c:ok,t:t,d:new Date().toISOString()});
+    if(!ex.p){blanks.forEach(b=>b.readOnly=true);document.querySelectorAll(".word").forEach(w=>w.disabled=true);$("#sname").readOnly=true;$("#chk").style.display="none";
+      try{localStorage.setItem("luki_done_"+ex.i,JSON.stringify({code:code,ans:blanks.map(b=>b.value),name:name}))}catch(e){}}
+    const r=$("#res");r.style.display="block";
+    r.innerHTML=`${ok===t?"🏆 Perfekcyjnie!":"⭐ Twój wynik:"} <span style="color:var(--ok)">✔ ${ok} dobrze</span> · <span style="color:var(--bad)">✘ ${t-ok} źle</span> (${ok}/${t})
+    <div class="hint">Zielone luki są poprawne, czerwone błędne. To była jedyna próba. Skopiuj kod wyniku i wyślij go nauczycielowi:</div>
+    <textarea class="code" readonly onclick="this.select()">${code}</textarea>
+    <div class="row"><button class="btn g" id="cp">📋 Kopiuj kod wyniku</button><span class="msg" id="cm"></span></div>`;
+    $("#cp").onclick=()=>{const ta=r.querySelector("textarea");ta.select();try{navigator.clipboard.writeText(ta.value)}catch(e){document.execCommand("copy")}$("#cm").textContent="Skopiowano!"};
+  };
+  if(saved){$("#sname").value=saved.name;blanks.forEach((b,i)=>b.value=saved.ans[i]||"");upd();$("#chk").onclick()}
+}
+
+/* ---------- TEACHER ---------- */
+let S={folders:[],ex:[],res:[]},curF="all",curE=null,tab="edit",dbDoc=null,note="",openD={};
+async function load(){
+  try{const u=await cap("db");if(u)dbDoc=u.doc("app/state")}catch(e){}
+  try{if(dbDoc){const s=await dbDoc.get();if(s.exists){S=Object.assign(S,s.data());return}}}catch(e){}
+  try{const l=localStorage.getItem("luki_state");if(l)S=Object.assign(S,JSON.parse(l))}catch(e){}
+}
+let tmr;function save(){clearTimeout(tmr);tmr=setTimeout(async()=>{
+  try{if(dbDoc)await dbDoc.set(JSON.parse(JSON.stringify(S)))}catch(e){}
+  try{localStorage.setItem("luki_state",JSON.stringify(S))}catch(e){}},400)}
+const b64u=u=>{let s="";u.forEach(b=>s+=String.fromCharCode(b));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")};
+const unb=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return Uint8Array.from(atob(s),c=>c.charCodeAt(0))};
+const pipe=async(u,C)=>new Uint8Array(await new Response(new Blob([u]).stream().pipeThrough(new C("deflate-raw"))).arrayBuffer());
+const encz=async o=>{try{return "~"+b64u(await pipe(new TextEncoder().encode(JSON.stringify(o)),CompressionStream))}catch(e){return enc(o)}};
+const decz=async s=>s[0]==="~"?JSON.parse(new TextDecoder().decode(await pipe(unb(s.slice(1)),DecompressionStream))):dec(s);
+const small=u=>new Promise(r=>{if(!u.startsWith("data:")||u.length<9000)return r(u);const im=new Image();im.onerror=()=>r(u);im.onload=()=>{const k=Math.min(1,420/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);let o=c.toDataURL("image/webp",.4);if(!o.startsWith("data:image/webp"))o=c.toDataURL("image/jpeg",.4);r(o.length<u.length?o:u)};im.src=u});
+async function link(e){const im=await Promise.all((e.images||[]).map(small));const o={i:e.id,t:e.title,n:e.inst,x:e.text,b:e.bank};if(e.bw!=null)o.bw=e.bw;else if(e.extra)o.e=e.extra;if(im.length)o.im=im;return location.href.split("#")[0]+"#u="+await encz(o)}
+function gaps(text){const a=[];text.replace(GAP,(m,x)=>{a.push(x);return m});return a}
+
+function teacher(){
+  const fl=S.ex.filter(e=>curF==="all"||e.folder===curF);
+  const e=S.ex.find(x=>x.id===curE);
+  app.innerHTML=hdr("Panel nauczyciela","Twórz ćwiczenia z lukami, generuj linki i sprawdzaj wyniki")+`
+  <div class="grid"><div class="side"><div class="card"><h2>📁 Foldery</h2>
+    <div class="item ${curF==="all"?"on":""}" data-f="all">Wszystkie <small>${S.ex.length}</small></div>
+    ${S.folders.map(f=>`<div class="item ${curF===f.id?"on":""}" data-f="${f.id}">${esc(f.name)} <small>${S.ex.filter(x=>x.folder===f.id).length}</small></div>`).join("")}
+    <div class="row"><button class="btn" id="addF">+ Nowy folder</button>${curF!=="all"?`<button class="btn d" id="delF">Usuń</button>`:""}</div>
+    <h2 style="margin-top:18px">📝 Teksty</h2>
+    ${fl.map(x=>`<div class="item ${curE===x.id?"on":""}" data-e="${x.id}">${esc(x.title||"Bez tytułu")}</div>`).join("")||'<div class="empty">Brak tekstów</div>'}
+    <div class="row"><button class="btn p" id="addE">+ Dodaj tekst</button></div></div></div>
+  <div class="main">${e?editor(e):`<div class="card"><div class="empty">Wybierz tekst z listy lub kliknij „Dodaj tekst”.</div></div>`}</div></div>`;
+  document.querySelectorAll("[data-f]").forEach(el=>el.onclick=()=>{curF=el.dataset.f;teacher()});
+  document.querySelectorAll("[data-e]").forEach(el=>el.onclick=()=>{curE=el.dataset.e;tab="edit";note="";teacher()});
+  $("#addF").onclick=()=>{const n=prompt("Nazwa folderu (np. uczeń lub kategoria):");if(n&&n.trim()){const f={id:uid(),name:n.trim()};S.folders.push(f);curF=f.id;save();teacher()}};
+  const df=$("#delF");if(df)df.onclick=()=>{if(confirm("Usunąć folder? Teksty zostaną przeniesione do „Wszystkie”.")){S.ex.forEach(x=>{if(x.folder===curF)x.folder=""});S.folders=S.folders.filter(f=>f.id!==curF);curF="all";save();teacher()}};
+  $("#addE").onclick=()=>{const x={id:uid(),folder:curF==="all"?"":curF,title:"Nowe ćwiczenie",inst:"Uzupełnij luki poprawną formą czasownika.",text:"",bank:true,extra:"",created:new Date().toISOString()};S.ex.unshift(x);curE=x.id;tab="edit";save();teacher()};
+  if(e)bindEditor(e);
+}
+function editor(e){
+  const g=gaps(e.text);const bw=e.bw!=null?e.bw:autoBank(e);
+  const rs=S.res.filter(r=>r.ex===e.id).sort((a,b)=>b.d.localeCompare(a.d));
+  const att={},cn={};[...rs].reverse().forEach(r=>{const k=r.n.trim().toLowerCase();att[r.id]=cn[k]=(cn[k]||0)+1});
+  return `<div class="card"><div class="tabs"><div class="tab ${tab==="edit"?"on":""}" data-t="edit">✏️ Edycja</div><div class="tab ${tab==="res"?"on":""}" data-t="res">📊 Wyniki (${rs.length})</div></div>`+
+  (tab==="edit"?`
+  <label style="margin-top:0">Tytuł</label><input type="text" id="t" value="${esc(e.title)}">
+  <label>Polecenie dla ucznia</label><input type="text" id="n" value="${esc(e.inst)}">
+  <label>Folder</label><select id="fo" style="padding:9px;border-radius:12px;border:2px solid var(--line);background:var(--field);color:var(--ink);font:500 14px Poppins">
+   <option value="">— brak —</option>${S.folders.map(f=>`<option value="${f.id}" ${e.folder===f.id?"selected":""}>${esc(f.name)}</option>`).join("")}</select>
+  <label>Zdjęcia (opcjonalnie, pokażą się nad tekstem)</label>
+  <div>${(e.images||[]).map((u,i)=>`<span class="chip"><img src="${esc(u)}" alt="" style="height:56px;border-radius:8px"><button class="btn d" data-di="${i}">✕</button></span>`).join("")}</div>
+  <div class="dz" id="dz">Przeciągnij tu zdjęcie (np. z Google) albo wklej je skrótem Ctrl+V<br><button class="btn" id="ai" style="margin-top:8px">🖼 Wybierz plik</button><input type="file" id="fi" accept="image/*" hidden><br><span class="msg" id="im"></span></div>
+  <label>Tekst. Wpisz lub wklej, potem zaznacz słowo i kliknij „Zrób lukę”</label><textarea id="x" placeholder="Wklej tutaj tekst...">${esc(e.text)}</textarea>
+  <div class="row"><button class="btn p" id="mk">✂️ Zrób lukę z zaznaczenia</button><button class="btn" id="un">↩ Cofnij ostatnią lukę</button><button class="btn" id="em">😁 Wstaw emotikonę</button></div><div id="ep"></div>
+  <div class="hint">Luka jest zapisana jako <b>[[słowo]]</b>. Możesz też wpisać ją ręcznie, np. <b>[[didn't steal|did not steal]]</b> (kilka poprawnych odpowiedzi rozdziela znak |).</div>
+  <details class="dt" data-k="ans"><summary>✅ Poprawne odpowiedzi (${g.length} luk)</summary>
+  ${g.map((a,i)=>`<div class="gaprow"><b>Luka ${i+1}</b><input type="text" data-g="${i}" value="${esc(a.split("|").map(s=>s.trim()).join(" | "))}"></div>`).join("")||'<div class="empty">Brak luk. Zaznacz słowo w tekście.</div>'}
+  ${g.length?`<div class="hint">Wpisz kilka poprawnych odpowiedzi oddzielając je znakiem |. Bank słów edytujesz osobno poniżej.</div>`:""}</details>
+  <details class="dt" data-k="bank"><summary>🎨 Bank słów</summary><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="bk" ${e.bank?"checked":""}> Pokaż bank słów uczniom</label>
+  <label>Słowa w banku, po przecinku. Możesz je dowolnie zmieniać, dopisywać i usuwać (np. gdy odpowiedź ma inny czas)</label><textarea id="bw" style="min-height:80px">${esc(bw)}</textarea><div class="row"><button class="btn" id="rb">↻ Wygeneruj z odpowiedzi</button></div></details>
+  
+  <div class="row"><button class="btn g" id="gen">🔗 Generuj link</button><button class="btn" id="pv">👁 Podgląd</button><button class="btn d" id="del">Usuń tekst</button></div>
+  <div id="lk"></div>`:`
+  <div class="tablewrap">${rs.length?`<table><tr><th>Uczeń</th><th>Dobrze</th><th>Źle</th><th>Wynik</th><th>Data</th><th></th></tr>
+  ${rs.map(r=>{const p=Math.round(r.c/r.t*100);return `<tr><td><b>${esc(r.n)}</b>${att[r.id]>1?` <span style="color:var(--bad);font-size:11px">⚠ próba ${att[r.id]}</span>`:""}</td><td style="color:var(--ok)">${r.c}</td><td style="color:var(--bad)">${r.t-r.c}</td><td class="sc ${p>=60?"hi":"lo"}">${p}%</td><td>${fmt(r.d)}</td><td><button class="btn d" data-r="${r.id}">✕</button></td></tr>`}).join("")}</table>`:'<div class="empty">Brak wyników. Wklej kod wyniku od ucznia poniżej.</div>'}</div>
+  <h3>Dodaj wynik ucznia</h3><textarea class="code" id="rc" placeholder="Wklej tutaj kod wyniku przesłany przez ucznia"></textarea>
+  <div class="row"><button class="btn p" id="ar">➕ Dodaj wynik</button><span class="msg" id="rm">${esc(note)}</span></div>
+  <div class="hint">Uczeń po sprawdzeniu dostaje kod wyniku, który wysyła Ci (np. na komunikatorze lub mailem). Data i liczba dobrych/złych odpowiedzi są w kodzie.</div>`)+`</div>`;
+}
+function bindEditor(e){
+  document.querySelectorAll("[data-t]").forEach(el=>el.onclick=()=>{tab=el.dataset.t;teacher()});
+  if(tab==="res"){
+    document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{S.res=S.res.filter(r=>r.id!==b.dataset.r);save();teacher()});
+    $("#ar").onclick=()=>{try{const o=dec($("#rc").value.trim());if(o.i!==e.id){note="Ten kod jest z innego ćwiczenia.";teacher();return}
+      S.res.push({id:uid(),ex:o.i,n:o.n,c:o.c,t:o.t,d:o.d});note="Dodano!";save();teacher()}catch(x){note="Nieprawidłowy kod.";$("#rm").textContent=note;$("#rm").style.color="var(--bad)"}};
+    return}
+  const t=$("#t"),n=$("#n"),x=$("#x");
+  t.oninput=()=>{e.title=t.value;save()};n.oninput=()=>{e.inst=n.value;save()};
+  $("#fo").onchange=ev=>{e.folder=ev.target.value;save();teacher()};
+  $("#bk").onchange=ev=>{e.bank=ev.target.checked;save()};$("#bw").oninput=ev=>{e.bw=ev.target.value;save()};
+  $("#rb").onclick=()=>{e.bw=autoBank(e);save();teacher()};
+  document.querySelectorAll("details.dt").forEach(d=>{d.open=!!openD[d.dataset.k];d.ontoggle=()=>{openD[d.dataset.k]=d.open}});
+  const setF=f=>{if(!f||!f.type.startsWith("image/"))return false;const dt=new DataTransfer();dt.items.add(f);const fi=$("#fi");fi.files=dt.files;fi.dispatchEvent(new Event("change"));return true};
+  const dz=$("#dz");dz.ondragover=ev=>{ev.preventDefault();dz.classList.add("on")};dz.ondragleave=()=>dz.classList.remove("on");
+  dz.ondrop=ev=>{ev.preventDefault();dz.classList.remove("on");if(!setF([...ev.dataTransfer.files][0])){const mm=$("#im");mm.textContent="Nie udało się przeciągnąć tego zdjęcia. Kliknij je prawym przyciskiem, wybierz „Kopiuj obraz” i wciśnij tutaj Ctrl+V.";mm.style.color="var(--bad)"}};
+  window.onpaste=ev=>{const it=[...((ev.clipboardData&&ev.clipboardData.items)||[])].find(i=>i.type.startsWith("image/"));if(it&&$("#fi")){ev.preventDefault();setF(it.getAsFile())}};
+  $("#ai").onclick=()=>$("#fi").click();
+  $("#fi").onchange=async ev=>{const f=ev.target.files[0];if(!f)return;const m=$("#im");let step="start";m.textContent="Wczytywanie zdjęcia…";
+    try{let url="",why="";step="assets";const as=await cap("assets").catch(er=>{why+="assets: "+((er&&(er.code||er.message))||er)+"; ";return null});
+      let s=null;try{step="resize";s=await shrink(f,1200,0.85)}catch(er){why+="resize nie działa; "}
+      if(as&&s){try{step="upload";const r=await as.upload(await s.blob());url=r.url}catch(er){why+="upload: "+((er&&(er.code||er.message))||er)+"; "}}
+      if(!url){step="inline";if(s){url=(await shrink(f,480,0.45)).url()}else{url=await new Promise((ok,no)=>{const fr=new FileReader();fr.onload=()=>ok(fr.result);fr.onerror=no;fr.readAsDataURL(f)});if(url.length>300000)throw new Error("plik za duży")}}
+      (e.images=e.images||[]).push(url);save();teacher();
+      if(why)$("#im").textContent="Dodano w trybie awaryjnym ("+why.trim()+")"}
+    catch(z){m.textContent="Błąd na etapie "+step+": "+((z&&(z.message||z.code||z.type))||z);m.style.color="var(--bad)"}};
+  document.querySelectorAll("[data-di]").forEach(b=>b.onclick=()=>{e.images.splice(+b.dataset.di,1);save();teacher()});
+  x.oninput=()=>{e.text=x.value;save()};
+  x.onchange=()=>teacher();
+  $("#mk").onclick=()=>{const s=x.selectionStart,en=x.selectionEnd;const sel=x.value.slice(s,en);
+    if(!sel.trim()){alert("Najpierw zaznacz słowo lub fragment w tekście.");return}
+    if(sel.includes("[[")||sel.includes("]]")){alert("Zaznaczenie zawiera już lukę.");return}
+    const lead=sel.length-sel.trimStart().length,core=sel.trim();
+    e.text=x.value.slice(0,s+lead)+"[["+core+"]]"+x.value.slice(s+lead+core.length);save();teacher()};
+  $("#em").onclick=()=>{const s=x.selectionStart,en=x.selectionEnd;const raw=x.value.slice(s,en);const pos=en>s?s+raw.trimEnd().length:en;const w=raw.trim().toLowerCase();
+    const sug=[...new Set(Object.keys(EKEY).filter(k=>w&&w.includes(k)).map(k=>EKEY[k]))];
+    const ep=$("#ep");const bt=l=>l.map(m=>`<button class="emo" data-em="${m}">${m}</button>`).join("");
+    ep.innerHTML=`<div class="dt" style="margin-top:10px">${sug.length?`<div class="hint" style="margin:0">Podpowiedź dla „${esc(raw.trim())}”:</div>${bt(sug)}<div class="hint">Wszystkie:</div>`:`<div class="hint" style="margin:0">${en>s?"Wybierz emotikonę, po zaznaczonym słowie:":"Ustaw kursor w tekście lub zaznacz słowo, a potem wybierz emotikonę:"}</div>`}<div id="et"></div><div id="eg"></div>
+      <div class="row"><input type="text" id="ce" placeholder="własna emotikona" style="max-width:160px"><button class="btn" id="cb">Wstaw</button><button class="btn d" id="cx">Zamknij</button></div></div>`;
+    const ins=m=>{if(!m)return;const v=x.value;e.text=v.slice(0,pos)+" "+m+v.slice(pos);save();teacher()};
+    let cat=0;const draw=()=>{$("#et").innerHTML=EC.map((c,i)=>`<button class="btn" data-ct="${i}" title="${c[1]}" style="padding:6px 10px;margin:2px;font-size:18px;${i===cat?"background:var(--purple);color:#fff":""}">${c[0]}</button>`).join("");$("#eg").innerHTML=`<div class="hint"><b>${EC[cat][1]}</b></div><div style="max-height:230px;overflow:auto">${bt(EC[cat][2].split(" "))}</div>`;$("#et").querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>{cat=+b.dataset.ct;draw()})};draw();
+    ep.onclick=ev=>{const b=ev.target.closest("[data-em]");if(b)ins(b.dataset.em)};$("#cb").onclick=()=>ins($("#ce").value.trim());$("#cx").onclick=()=>{ep.innerHTML=""}};
+  $("#un").onclick=()=>{const m=[...e.text.matchAll(GAP)].pop();if(m){e.text=e.text.slice(0,m.index)+m[1].split("|")[0].trim()+e.text.slice(m.index+m[0].length);save();teacher()}};
+  document.querySelectorAll("[data-g]").forEach(inp=>inp.onchange=()=>{const k=+inp.dataset.g;let i=0;
+    e.text=e.text.replace(GAP,m=>i++===k?"[["+(inp.value.split("|").map(s=>s.trim()).filter(Boolean).join("|")||"?")+"]]":m);save();teacher()});
+  $("#gen").onclick=async()=>{if(!gaps(e.text).length){alert("Dodaj przynajmniej jedną lukę.");return}
+    $("#lk").innerHTML='<div class="hint">Generuję link…</div>';const l=await link(e);$("#lk").innerHTML=`<div class="hint" style="margin-top:14px"><b>Link dla ucznia</b> (${l.length} znaków)${l.length>6000?". Link jest długi z powodu zdjęć, użyj mniejszej liczby lub mniejszych zdjęć":""}:</div><textarea class="code" readonly onclick="this.select()">${esc(l)}</textarea><div class="row"><button class="btn g" id="cl">📋 Kopiuj link</button><span class="msg" id="lm"></span></div>`;
+    $("#cl").onclick=()=>{const ta=$("#lk textarea");ta.select();try{navigator.clipboard.writeText(l)}catch(z){document.execCommand("copy")}$("#lm").textContent="Skopiowano!"}};
+  $("#pv").onclick=()=>{if(!gaps(e.text).length){alert("Dodaj przynajmniej jedną lukę.");return}student({i:e.id,t:e.title,n:e.inst,x:e.text,b:e.bank,e:e.extra,bw:e.bw,im:e.images||[],p:1});
+    app.insertAdjacentHTML("afterbegin",`<div class="row" style="margin:0 0 12px"><button class="btn p" id="bkp">← Wróć do edycji</button></div>`);$("#bkp").onclick=teacher}
+  $("#del").onclick=()=>{if(confirm("Usunąć ten tekst wraz z wynikami?")){S.ex=S.ex.filter(z=>z.id!==e.id);S.res=S.res.filter(r=>r.ex!==e.id);curE=null;save();teacher()}};
+}
+
+/* ---------- START ---------- */
+async function init(){
+  const m=location.hash.match(/^#u=(.+)$/);
+  if(m){try{student(await decz(m[1]));return}catch(e){app.innerHTML=hdr("Ups","Ten link jest uszkodzony")+`<div class="card">Poproś nauczyciela o nowy link.</div>`;return}}
+  let owner=true;
+  try{const u=await cap("user");if(u)owner=await u.isOwner()}catch(e){}
+  if(!owner){app.innerHTML=hdr("Ćwiczenia z lukami","Otwórz link otrzymany od nauczyciela")+`<div class="card">Ta strona to panel nauczyciela. Uczeń otwiera ćwiczenie przez swój link.</div>`;return}
+  await load();teacher();
+}
+window.addEventListener("hashchange",()=>location.reload());
+(function(){const R=document.documentElement;try{if(localStorage.getItem("luki_plain")==="1")R.classList.add("plain")}catch(e){}
+  $("#tg").onclick=()=>{R.classList.toggle("plain");try{localStorage.setItem("luki_plain",R.classList.contains("plain")?"1":"0")}catch(e){}};
+  const fx=$("#fx");[["🎃",2,12,44],["👻",92,16,40],["🧙",90,44,46],["💀",3,64,40],["🕸️",0,0,70],["🕸️",93,0,70],["🎃",92,72,46],["🍬",6,88,30],["🧛",86,88,42],["🕯️",2,40,30],["🧟",94,58,40],["👻",8,26,34],["🌕",80,4,46],["🦉",96,30,34],["🦴",5,78,30]].forEach((a,i)=>{const s=document.createElement("span");s.className="fl";s.textContent=a[0];s.style.cssText=`left:${a[1]}%;top:${a[2]}%;font-size:${a[3]}px;animation-delay:-${(i*.7)%4}s;animation-duration:${3.5+(i%3)}s`;fx.appendChild(s)});
+  [[12,17],[30,22],[22,26]].forEach((a,i)=>{const s=document.createElement("span");s.className="bat";s.textContent="🦇";s.style.cssText=`top:${a[0]}vh;animation-duration:${a[1]}s;animation-delay:-${i*7}s`;fx.appendChild(s)});
+  $("#gr").innerHTML=["🪦","🎃","💀","🧟","🧙","🎃","👻","🦇","🕯️","🧛","🎃","🪦"].map((m,i)=>`<span style="animation-delay:${i*.25}s">${m}</span>`).join("")})();
+init();
+})();
+</script>
+</body>
+</html>
